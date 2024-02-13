@@ -1,0 +1,14 @@
+<h1>Categories</h1>
+<app-category-list [navigationEnabled]="selectedCategory == null" [categories]="categories"
+    (onSelected)="chooseCategory($event)" (onDeleted)="chooseCategoryDelete($event)"></app-category-list>
+
+<app-category-form *ngIf="selectedCategory != null" [category]="selectedCategory" (onSave)="saveCategory($event)"
+    (onCancel)="cancelEdit()"></app-category-form>
+
+<app-category-card *ngIf="selectedCategoryToDelete != null" [category]="selectedCategoryToDelete"
+    (onDelete)="deleteCategory($event)" (onCancel)="cancelDelete()"></app-category-card>
+
+<div class="flex flex-row-reverse ">
+    <p-button class="p-2" label="New category" *ngIf="! selectedCategory && ! selectedCategoryToDelete" (onClick)="newCategory()"
+        severity="info"></p-button>
+</div>
