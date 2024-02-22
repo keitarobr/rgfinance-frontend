@@ -1,0 +1,11 @@
+<p-panel header="Account">
+
+    <div class="flex flex-column gap-2">
+        <label for="name">Account</label>
+        <input pInputText id="name" aria-describedby="name-help" value="{{account?.name}}" />
+    </div>
+
+    <p-button severity="Danger" label="Delete" (onClick)="delete()"></p-button>
+    <p-button severity="secondary" label="Cancel" (onClick)="cancel()"></p-button>
+ 
+</p-panel>

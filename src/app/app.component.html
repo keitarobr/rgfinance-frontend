@@ -1,3 +1,9 @@
-<p-menubar [model]="menuOptions"></p-menubar>
-<p-messages [closable]="true" [enableService]="true"></p-messages>
-<router-outlet />
+<div class="container">
+    <div class="header">
+        <p-menubar [model]="menuOptions"></p-menubar>
+        <p-messages [closable]="true" [enableService]="true"></p-messages>
+    </div>
+    <div class="content">
+        <router-outlet />
+    </div>
+</div>

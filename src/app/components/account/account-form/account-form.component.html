@@ -1,0 +1,14 @@
+<p-panel header="Account">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-pencil"></i>
+            </p-inputGroupAddon>
+            <input type="text" pInputText formControlName="name" #name />
+        </p-inputGroup>
+    </form>
+
+    <p-button severity="sucess" label="Save" (onClick)="save()"></p-button>
+    <p-button severity="secondary" label="Cancel" (onClick)="cancel()"></p-button>
+
+</p-panel>

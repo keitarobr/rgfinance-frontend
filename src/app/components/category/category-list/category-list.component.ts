@@ -1,8 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { PanelModule } from 'primeng/panel';
 
 import { Category, CategoryAPIService } from '../../../api/category/category-api.service';
+import { TableModule } from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { NgIf } from '@angular/common';
 

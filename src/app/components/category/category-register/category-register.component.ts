@@ -32,7 +32,7 @@ export class CategoryRegisterComponent {
     this.api.delete(category).pipe(catchError(err => {
       this.messageService.add({ life: 3000, severity: 'error', summary: 'Error removing category', detail: err.error.message });
       return of(null);
-    })).subscribe(() => { this.reloadCategories(); this.selectedCategoryToDelete = undefined; });
+    })).subscribe((result) => { if (result) { this.reloadCategories(); this.selectedCategoryToDelete = undefined; } });
   }
   cancelDelete() {
     this.selectedCategoryToDelete = undefined;
@@ -41,7 +41,10 @@ export class CategoryRegisterComponent {
   categories: Category[] = [];
 
   saveCategory(category: Category) {
-    this.api.save(category).subscribe(() => { this.reloadCategories(); this.selectedCategory = undefined; });
+    this.api.save(category).pipe(catchError(err => {
+      this.messageService.add({ life: 3000, severity: 'error', summary: 'Error removing category', detail: err.error.message });
+      return of(null);
+    })).subscribe((result) => { if (result) { this.reloadCategories(); this.selectedCategory = undefined; }});
   }
 
   cancelEdit() {

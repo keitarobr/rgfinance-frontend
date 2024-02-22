@@ -1,0 +1,30 @@
+<p-table [value]="accounts" styleClass="p-datatable-gridlines p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-account>
+
+        @if(account == rowAccount) {
+        <tr style="background: #bed5fa; font-weight: bold">
+            <td>{{ account.id }}</td>
+            <td>{{ account.name }}</td>
+            <td><p-button icon="pi pi-file-edit" (onClick)="edit(account)"></p-button>
+                <p-button icon="pi pi-trash" (onClick)="delete(account)"></p-button>
+            </td>
+        </tr>
+        } @else {
+        <tr>
+            <td>{{ account.id }}</td>
+            <td>{{ account.name }}</td>
+            <td><p-button icon="pi pi-file-edit" (onClick)="edit(account)"></p-button>
+                <p-button icon="pi pi-trash" (onClick)="delete(account)"></p-button>
+            </td>
+        </tr>
+        }
+    </ng-template>
+</p-table>

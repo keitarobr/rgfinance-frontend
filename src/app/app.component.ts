@@ -31,6 +31,13 @@ export class AppComponent {
           command: () => {
             this.router.navigateByUrl("/category-register");
           }
+        },
+        {
+          label: 'Accounts',
+          icon: 'pi pi-fw pi-table',
+          command: () => {
+            this.router.navigateByUrl("/account-register");
+          }
         }
       ]
     }
