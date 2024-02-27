@@ -16,18 +16,18 @@ export class AccountAPIService {
   constructor(private http: HttpClient) { }
 
   listAll(): Observable<Account[]> {
-    return this.http.get<Account[]>("http://estudos:3000/account/");
+    return this.http.get<Account[]>("http://localhost:3000/account/");
   }
 
   save(account: Account) {
     if (account.id > 0) {
-      return this.http.patch<Account>(`http://estudos:3000/account/${account.id}`, account);
+      return this.http.patch<Account>(`http://localhost:3000/account/${account.id}`, account);
     } else {
-      return this.http.post<Account>("http://estudos:3000/account", account);
+      return this.http.post<Account>("http://localhost:3000/account", account);
     }
   }
 
   delete(account: Account) {
-    return this.http.delete(`http://estudos:3000/account/${account.id}`);
+    return this.http.delete(`http://localhost:3000/account/${account.id}`);
   }
 }
