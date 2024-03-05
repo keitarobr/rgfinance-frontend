@@ -40,6 +40,13 @@ export class AppComponent {
           }
         }
       ]
+    },
+    {
+      label: 'Transactions',
+      icon: 'pi pi-fw pi-money-bill',
+      command: () => {
+        this.router.navigateByUrl("/monetary-transaction-register");
+      }
     }
   ];
 }

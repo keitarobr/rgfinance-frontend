@@ -1,1 +1,20 @@
-<p>monetary-transaction-register works!</p>
+<h1>Transactions</h1>
+
+<form [formGroup]="formFilter">
+<app-account-dropdown formControlName="account"></app-account-dropdown>
+</form>
+
+<div>Selected account name: {{selectedAccount?.name}}</div>
+<!-- <app-account-list [navigationEnabled]="selectedAccount == null" [accounts]="accounts"
+    (onSelected)="chooseAccount($event)" (onDeleted)="chooseAccountDelete($event)"></app-account-list> -->
+
+<!-- <app-account-form *ngIf="selectedAccount != null" [account]="selectedAccount" (onSave)="saveAccount($event)"
+    (onCancel)="cancelEdit()"></app-account-form> -->
+
+<!-- <app-account-card *ngIf="selectedAccountToDelete != null" [account]="selectedAccountToDelete"
+    (onDelete)="deleteAccount($event)" (onCancel)="cancelDelete()"></app-account-card> -->
+
+<!-- <div class="flex flex-row-reverse ">
+    <p-button class="p-2" label="New account" *ngIf="! selectedAccount && ! selectedAccountToDelete" (onClick)="newAccount()"
+        severity="info"></p-button>
+</div> -->

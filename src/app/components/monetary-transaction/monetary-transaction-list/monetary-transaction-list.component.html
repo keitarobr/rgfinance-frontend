@@ -1,1 +1,34 @@
-<p>monetary-transaction-list works!</p>
+<p-table [value]="monetaryTransactions" styleClass="p-datatable-gridlines p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Value</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-monetarytransaction>
+
+        @if(monetarytransaction == rowMonetaryTransaction) {
+        <tr style="background: #bed5fa; font-weight: bold">
+            <td>{{ monetarytransaction.id }}</td>
+            <td>{{ monetarytransaction.date }}</td>
+            <td>{{ monetarytransaction.value }}</td>
+            <td><p-button icon="pi pi-file-edit" (onClick)="edit(monetarytransaction)"></p-button>
+                <p-button icon="pi pi-trash" (onClick)="delete(monetarytransaction)"></p-button>
+            </td>
+        </tr>
+        } @else {
+        <tr>
+            <td>{{ monetarytransaction.id }}</td>
+            <td>{{ monetarytransaction.date }}</td>
+            <td>{{ monetarytransaction.value }}</td>
+            <td><p-button icon="pi pi-file-edit" (onClick)="edit(monetarytransaction)"></p-button>
+                <p-button icon="pi pi-trash" (onClick)="delete(monetarytransaction)"></p-button>
+            </td>
+        </tr>
+        }
+    </ng-template>
+</p-table>
