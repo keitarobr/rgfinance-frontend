@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Category } from '../category/category-api.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Account } from '../account/account-api.service';
 
 export interface MonetaryTransaction {
   id: number;
   date: Date;
   value: number;
-  category: Category;
+  category?: Category;
+  account: Account;
 }
 
 @Injectable({
@@ -19,6 +21,10 @@ export class MonetaryTransactionApiService {
 
   listAll(): Observable<MonetaryTransaction[]> {
     return this.http.get<MonetaryTransaction[]>("http://localhost:3000/transaction/");
+  }
+
+  listAllForAccount(accountId: number) {
+    return this.http.get<MonetaryTransaction[]>(`http://localhost:3000/transaction/account/${accountId}`);
   }
 
   save(monetaryTransaction: MonetaryTransaction) {

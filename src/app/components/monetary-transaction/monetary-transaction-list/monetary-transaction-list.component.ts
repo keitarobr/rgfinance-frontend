@@ -14,19 +14,17 @@ import { Account } from '../../../api/account/account-api.service';
   styleUrl: './monetary-transaction-list.component.scss'
 })
 export class MonetaryTransactionListComponent {
-  
-  private _account: Account;
+
+  private _account?: Account;
 
   constructor(private monetaryTransactionAPI: MonetaryTransactionApiService) {
     
   }
 
   @Input()
-  public set account(value: Account) {
+  public set account(value: Account|undefined) {
     this._account = value;
-    this.monetaryTransactionAPI.listAll().subscribe((transactionList: MonetaryTransaction[]) => {
-      this.monetaryTransactions = transactionList.filter(t => t.)
-    });
+    this.reloadTransactions();    
   }
 
   delete(_t13: any) {
@@ -39,4 +37,16 @@ export class MonetaryTransactionListComponent {
   monetaryTransactions: MonetaryTransaction[] = [];
   rowMonetaryTransaction?: MonetaryTransaction;
 
+  reloadTransactions() {
+    if (! this._account) {
+      this.monetaryTransactions = [];
+    } else {
+    this.monetaryTransactionAPI.listAllForAccount(this._account.id).subscribe((transactionList: MonetaryTransaction[]) => {
+      this.monetaryTransactions = transactionList;
+    });
+  }
+  }
+  
+
 }
+

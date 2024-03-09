@@ -1,15 +1,19 @@
 <h1>Transactions</h1>
 
-<form [formGroup]="formFilter">
-<app-account-dropdown formControlName="account"></app-account-dropdown>
+<form [formGroup]="formFilter" class="mb-3">
+    <label for="account">Account: </label>
+    <app-account-dropdown formControlName="account"></app-account-dropdown>
 </form>
 
-<div>Selected account name: {{selectedAccount?.name}}</div>
-<!-- <app-account-list [navigationEnabled]="selectedAccount == null" [accounts]="accounts"
-    (onSelected)="chooseAccount($event)" (onDeleted)="chooseAccountDelete($event)"></app-account-list> -->
+<div class="flex flex-row-reverse ">
+    <p-button class="p-2" label="New transaction" *ngIf="! selectedTransaction && ! selectedTransactionToDelete && selectedAccount" (onClick)="newTransaction()"
+        severity="info"></p-button>
+</div>
 
-<!-- <app-account-form *ngIf="selectedAccount != null" [account]="selectedAccount" (onSave)="saveAccount($event)"
-    (onCancel)="cancelEdit()"></app-account-form> -->
+<app-monetary-transaction-list [account]="selectedAccount"></app-monetary-transaction-list>
+
+<app-monetary-transaction-form *ngIf="selectedTransaction != null" [monetaryTransaction]="selectedTransaction" (onSave)="saveTransaction($event)"
+    (onCancel)="cancelEdit()"></app-monetary-transaction-form>
 
 <!-- <app-account-card *ngIf="selectedAccountToDelete != null" [account]="selectedAccountToDelete"
     (onDelete)="deleteAccount($event)" (onCancel)="cancelDelete()"></app-account-card> -->

@@ -1,1 +1,26 @@
-<p>monetary-transaction-form works!</p>
+<p-panel header="Account">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-pencil"></i>
+            </p-inputGroupAddon>
+            <p-calendar formControlName="date" #date />
+        </p-inputGroup>
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-pencil"></i>
+            </p-inputGroupAddon>
+            <p-inputNumber formControlName="value" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" #value />
+        </p-inputGroup>
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-pencil"></i>
+            </p-inputGroupAddon>
+            <app-category-dropdown formControlName="category" #category />
+        </p-inputGroup>
+    </form>
+
+    <p-button severity="success" label="Save" (onClick)="save()"></p-button>
+    <p-button severity="secondary" label="Cancel" (onClick)="cancel()"></p-button>
+
+</p-panel>
