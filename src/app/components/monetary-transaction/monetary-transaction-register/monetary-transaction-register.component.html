@@ -10,15 +10,11 @@
         severity="info"></p-button>
 </div>
 
-<app-monetary-transaction-list [account]="selectedAccount"></app-monetary-transaction-list>
+<app-monetary-transaction-list [navigationEnabled]="selectedTransaction == null && selectedTransactionToDelete == null"  [monetaryTransactions]="monetaryTransactions"
+(onDeleted)="deleteTransactionSelected($event)" (onSelected)="selectTransaction($event)"></app-monetary-transaction-list>
 
 <app-monetary-transaction-form *ngIf="selectedTransaction != null" [monetaryTransaction]="selectedTransaction" (onSave)="saveTransaction($event)"
     (onCancel)="cancelEdit()"></app-monetary-transaction-form>
 
-<!-- <app-account-card *ngIf="selectedAccountToDelete != null" [account]="selectedAccountToDelete"
-    (onDelete)="deleteAccount($event)" (onCancel)="cancelDelete()"></app-account-card> -->
-
-<!-- <div class="flex flex-row-reverse ">
-    <p-button class="p-2" label="New account" *ngIf="! selectedAccount && ! selectedAccountToDelete" (onClick)="newAccount()"
-        severity="info"></p-button>
-</div> -->
+<app-monetary-transaction-card *ngIf="selectedTransactionToDelete != null" [monetaryTransaction]="selectedTransactionToDelete"
+    (onDelete)="deleteTransaction($event)" (onCancel)="cancelDelete()"></app-monetary-transaction-card>

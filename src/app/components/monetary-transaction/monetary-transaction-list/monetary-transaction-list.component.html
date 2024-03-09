@@ -15,6 +15,7 @@
         <tr style="background: #bed5fa; font-weight: bold">
             <td>{{ monetarytransaction.id }}</td>
             <td>{{ monetarytransaction.date }}</td>
+            <td>{{ monetarytransaction.category.name }}</td>
             <td>{{ monetarytransaction.value }}</td>
             <td><p-button icon="pi pi-file-edit" (onClick)="edit(monetarytransaction)"></p-button>
                 <p-button icon="pi pi-trash" (onClick)="delete(monetarytransaction)"></p-button>
@@ -24,6 +25,7 @@
         <tr>
             <td>{{ monetarytransaction.id }}</td>
             <td>{{ monetarytransaction.date }}</td>
+            <td>{{ monetarytransaction.category.name }}</td>
             <td>{{ monetarytransaction.value }}</td>
             <td><p-button icon="pi pi-file-edit" (onClick)="edit(monetarytransaction)"></p-button>
                 <p-button icon="pi pi-trash" (onClick)="delete(monetarytransaction)"></p-button>

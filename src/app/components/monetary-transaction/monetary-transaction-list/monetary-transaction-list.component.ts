@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
@@ -15,38 +15,87 @@ import { Account } from '../../../api/account/account-api.service';
 })
 export class MonetaryTransactionListComponent {
 
-  private _account?: Account;
+  @Input() navigationEnabled: boolean = true;
+  @Input() monetaryTransactions: MonetaryTransaction[] = [];
+  @Output() onSelected: EventEmitter<MonetaryTransaction> = new EventEmitter();
+  @Output() onDeleted: EventEmitter<MonetaryTransaction> = new EventEmitter();
+  
 
-  constructor(private monetaryTransactionAPI: MonetaryTransactionApiService) {
+  constructor() {
     
   }
 
-  @Input()
-  public set account(value: Account|undefined) {
-    this._account = value;
-    this.reloadTransactions();    
+ 
+  delete(monetaryTransaction: MonetaryTransaction) {
+    this.onDeleted.emit(monetaryTransaction);  
   }
 
-  delete(_t13: any) {
-  throw new Error('Method not implemented.');
-  }
-  edit(_t13: any) {
-  throw new Error('Method not implemented.');
+  edit(monetaryTransaction: MonetaryTransaction) {
+  this.onSelected.emit(monetaryTransaction);
   }
 
-  monetaryTransactions: MonetaryTransaction[] = [];
   rowMonetaryTransaction?: MonetaryTransaction;
 
-  reloadTransactions() {
-    if (! this._account) {
-      this.monetaryTransactions = [];
-    } else {
-    this.monetaryTransactionAPI.listAllForAccount(this._account.id).subscribe((transactionList: MonetaryTransaction[]) => {
-      this.monetaryTransactions = transactionList;
-    });
+  @HostListener("window:keydown.ArrowDown", ['$event'])
+  keyDown() {
+    if (! this.navigationEnabled) {
+      return;
+    }
+    if (this.rowMonetaryTransaction && ! this.monetaryTransactions.includes(this.rowMonetaryTransaction)) {
+      this.rowMonetaryTransaction = undefined;
+    }
+    
+    if (! this.rowMonetaryTransaction && this.monetaryTransactions.length > 0) {
+      this.rowMonetaryTransaction = this.monetaryTransactions[0];
+    } else if (this.rowMonetaryTransaction) {
+      const idx = this.monetaryTransactions.indexOf(this.rowMonetaryTransaction);
+      if (idx < (this.monetaryTransactions.length - 1)) {
+        this.rowMonetaryTransaction = this.monetaryTransactions[idx + 1];
+      }
+    }
   }
-  }
-  
 
+  @HostListener("window:keydown.ArrowUp", ['$event'])
+  keyUp() {
+    if (! this.navigationEnabled) {
+      return;
+    }
+    if (this.rowMonetaryTransaction && ! this.monetaryTransactions.includes(this.rowMonetaryTransaction)) {
+      this.rowMonetaryTransaction = undefined;
+    }
+    
+    if (! this.rowMonetaryTransaction && this.monetaryTransactions.length > 0) {
+      this.rowMonetaryTransaction = this.monetaryTransactions[0];
+    } else if (this.rowMonetaryTransaction) {
+      const idx = this.monetaryTransactions.indexOf(this.rowMonetaryTransaction);
+      if (idx > 0) {
+        this.rowMonetaryTransaction = this.monetaryTransactions[idx - 1];
+      }
+    }
+  }
+
+  @HostListener("window:keydown.Delete", ['$event'])
+  deleteKey(event: any) {
+    if (! this.navigationEnabled) {
+      return;
+    }
+    event.preventDefault();
+    if (event && this.rowMonetaryTransaction) {
+      this.delete(this.rowMonetaryTransaction);
+    }
+  }
+
+  @HostListener("window:keydown.e", ['$event'])
+  editKey(event: any) {
+    if (! this.navigationEnabled) {
+      return;
+    }
+    event.preventDefault();
+    if (event && this.rowMonetaryTransaction) {
+      this.edit(this.rowMonetaryTransaction);
+    }
+  }
+
+ 
 }
 

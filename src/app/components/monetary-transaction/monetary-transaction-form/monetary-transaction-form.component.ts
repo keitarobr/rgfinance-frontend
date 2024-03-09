@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -17,7 +17,13 @@ import { Category } from '../../../api/category/category-api.service';
   templateUrl: './monetary-transaction-form.component.html',
   styleUrl: './monetary-transaction-form.component.scss'
 })
-export class MonetaryTransactionFormComponent {
+export class MonetaryTransactionFormComponent implements AfterViewInit {
+
+  @ViewChild('date')dateInput!: ElementRef;
+
+  ngAfterViewInit(): void {
+    this.dateInput.nativeElement.focus();    
+  }
 
   @HostListener("window:keydown.escape", ['$event'])
   cancel() {
@@ -32,6 +38,10 @@ export class MonetaryTransactionFormComponent {
 
   save() {
     if (!this.form.invalid) {      
+      this._monetaryTransaction.date = this.form.get("date")!.value!;
+      this._monetaryTransaction.value = this.form.get("value")!.value!;
+      this._monetaryTransaction.category = this.form.get("category")!.value!;
+
       this.onSave.emit(this._monetaryTransaction);
     }
   }
@@ -44,6 +54,7 @@ export class MonetaryTransactionFormComponent {
     } else {
       this._monetaryTransaction = value;
     }
+    
     this.form.get("date")!.setValue(this._monetaryTransaction.date);
     this.form.get("value")!.setValue(this._monetaryTransaction.value);
     this.form.get("category")!.setValue(this._monetaryTransaction.category);
