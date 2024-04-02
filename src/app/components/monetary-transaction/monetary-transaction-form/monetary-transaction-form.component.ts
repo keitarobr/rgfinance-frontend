@@ -18,11 +18,23 @@ import { Category } from '../../../api/category/category-api.service';
   styleUrl: './monetary-transaction-form.component.scss'
 })
 export class MonetaryTransactionFormComponent implements AfterViewInit {
+disableSave() {
+  console.log("aaaaaaa");
+this.allowSave = false;
+}
+enableSave() {
+  setTimeout(() => {this.allowSave = true;}, 300);
 
-  @ViewChild('date')dateInput!: ElementRef;
+}
+
+  @ViewChild('value')valueInput!: InputNumber;
+  allowSave: boolean = true;
 
   ngAfterViewInit(): void {
-    this.dateInput.nativeElement.focus();    
+    setTimeout(() => {            
+      document.getElementById(this.valueInput.inputId!)!.focus();
+      (document.getElementById(this.valueInput.inputId!)! as any).select();
+    }, 100);
   }
 
   @HostListener("window:keydown.escape", ['$event'])
@@ -32,8 +44,12 @@ export class MonetaryTransactionFormComponent implements AfterViewInit {
 
   @HostListener("window:keydown.Enter", ['$event'])
   saveKey(event: any) {
+    if (this.allowSave) {
     event.preventDefault();
     this.save();
+    } else {
+      event.preventDefault();
+    }
   }
 
   save() {
@@ -55,7 +71,7 @@ export class MonetaryTransactionFormComponent implements AfterViewInit {
       this._monetaryTransaction = value;
     }
     
-    this.form.get("date")!.setValue(this._monetaryTransaction.date);
+    this.form.get("date")!.setValue(new Date(this._monetaryTransaction.date));
     this.form.get("value")!.setValue(this._monetaryTransaction.value);
     this.form.get("category")!.setValue(this._monetaryTransaction.category);
   }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AccountDropdownComponent } from '../../account/account-dropdown/account-dropdown.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Account } from '../../../api/account/account-api.service';
 import { MonetaryTransactionListComponent } from '../monetary-transaction-list/monetary-transaction-list.component';
-import { ButtonModule } from 'primeng/button';
+import { Button, ButtonModule } from 'primeng/button';
 import { MonetaryTransaction, MonetaryTransactionApiService } from '../../../api/monetary-transaction/monetary-transaction-api.service';
 import { NgIf } from '@angular/common';
 import { MonetaryTransactionFormComponent } from '../monetary-transaction-form/monetary-transaction-form.component';
@@ -20,6 +20,9 @@ import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
   styleUrl: './monetary-transaction-register.component.scss'
 })
 export class MonetaryTransactionRegisterComponent {
+
+@ViewChild("newButton") newButton: ElementRef | undefined;
+
 selectTransaction(transaction: MonetaryTransaction) {
 this.selectedTransaction = transaction;
 
@@ -63,9 +66,13 @@ reloadTransactions() {
   } else {
   this.monetaryAPI.listAllForAccount(this.selectedAccount.id).subscribe((transactionList: MonetaryTransaction[]) => {
     this.monetaryTransactions = transactionList;
+    setTimeout(() => {    this.focusTransactions() }, 200);
   });
 }
 }
+  focusTransactions() {
+    this.newButton!.nativeElement.focus();
+  }
   
   formFilter: FormGroup;
   selectedAccount?: Account;

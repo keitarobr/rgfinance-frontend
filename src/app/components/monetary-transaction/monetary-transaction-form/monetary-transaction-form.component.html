@@ -4,19 +4,19 @@
             <p-inputGroupAddon>
                 <i class="pi pi-pencil"></i>
             </p-inputGroupAddon>
-            <p-calendar formControlName="date" #date />
+            <p-calendar   formControlName="date" #date id="date"/>
         </p-inputGroup>
         <p-inputGroup>
             <p-inputGroupAddon>
                 <i class="pi pi-pencil"></i>
             </p-inputGroupAddon>
-            <p-inputNumber formControlName="value" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" #value />
+            <p-inputNumber inputId="inputValor" formControlName="value" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" #value />
         </p-inputGroup>
-        <p-inputGroup>
+        <p-inputGroup class="flex-grow-1">
             <p-inputGroupAddon>
                 <i class="pi pi-pencil"></i>
             </p-inputGroupAddon>
-            <app-category-dropdown formControlName="category" #category />
+            <app-category-dropdown (onShow)="disableSave()" (onHide)="enableSave()" formControlName="category" #category />
         </p-inputGroup>
     </form>
 

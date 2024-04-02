@@ -1,7 +1,8 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Output, forwardRef } from '@angular/core';
 import { Category, CategoryAPIService } from '../../../api/category/category-api.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
+import { AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'app-category-dropdown',
@@ -18,6 +19,16 @@ import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
   ]
 })
 export class CategoryDropdownComponent implements ControlValueAccessor {
+
+  @Output() onShow = new EventEmitter<AnimationEvent>();
+  @Output() onHide = new EventEmitter<AnimationEvent>();
+
+hide($event: AnimationEvent) {
+this.onHide.emit($event);
+}
+show($event: AnimationEvent) {
+this.onShow.emit($event);
+}
   onChange: any = () => {}
   disabled: boolean = false;
 

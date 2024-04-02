@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgIf, DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
@@ -9,7 +9,7 @@ import { Account } from '../../../api/account/account-api.service';
 @Component({
   selector: 'app-monetary-transaction-list',
   standalone: true,
-  imports: [TableModule, PanelModule, ButtonModule, NgIf],
+  imports: [TableModule, PanelModule, ButtonModule, NgIf, DatePipe],
   templateUrl: './monetary-transaction-list.component.html',
   styleUrl: './monetary-transaction-list.component.scss'
 })

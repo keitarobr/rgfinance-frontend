@@ -6,8 +6,8 @@
 </form>
 
 <div class="flex flex-row-reverse ">
-    <p-button class="p-2" label="New transaction" *ngIf="! selectedTransaction && ! selectedTransactionToDelete && selectedAccount" (onClick)="newTransaction()"
-        severity="info"></p-button>
+    <button pButton  class="p-2" label="New transaction" *ngIf="! selectedTransaction && ! selectedTransactionToDelete && selectedAccount" (onClick)="newTransaction()"
+        severity="info" #newButton></button>
 </div>
 
 <app-monetary-transaction-list [navigationEnabled]="selectedTransaction == null && selectedTransactionToDelete == null"  [monetaryTransactions]="monetaryTransactions"
