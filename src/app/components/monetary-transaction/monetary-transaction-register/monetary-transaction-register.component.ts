@@ -11,13 +11,14 @@ import { MessageService } from 'primeng/api';
 import { catchError, of } from 'rxjs';
 import { MonetaryTransactionCardComponent } from '../monetary-transaction-card/monetary-transaction-card.component';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
+import { MonetaryTransactionQuickInputComponent } from "../monetary-transaction-quick-input/monetary-transaction-quick-input.component";
 
 @Component({
-  selector: 'app-monetary-transaction-register',
-  standalone: true,
-  imports: [MonetaryTransactionCardComponent, AccountDropdownComponent, ReactiveFormsModule, MonetaryTransactionListComponent, ButtonModule, NgIf, MonetaryTransactionFormComponent],
-  templateUrl: './monetary-transaction-register.component.html',
-  styleUrl: './monetary-transaction-register.component.scss'
+    selector: 'app-monetary-transaction-register',
+    standalone: true,
+    templateUrl: './monetary-transaction-register.component.html',
+    styleUrl: './monetary-transaction-register.component.scss',
+    imports: [MonetaryTransactionQuickInputComponent, MonetaryTransactionCardComponent, AccountDropdownComponent, ReactiveFormsModule, MonetaryTransactionListComponent, ButtonModule, NgIf, MonetaryTransactionFormComponent, MonetaryTransactionQuickInputComponent]
 })
 export class MonetaryTransactionRegisterComponent {
 

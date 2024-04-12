@@ -1,0 +1,28 @@
+<form [formGroup]="formGroup">
+    <textarea rows="5" cols="30" pInputTextarea formControlName="transactions"></textarea>
+    <button pButton  class="p-2" label="Add transactions" (click)="addTransactions()"
+        severity="info" #newButton></button>
+</form>
+
+<p-table [value]="monetaryTransactions" styleClass="p-datatable-gridlines p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Value</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-monetarytransaction>
+
+        <tr>
+            <td>{{ monetarytransaction.date | date: 'shortDate' }}</td>
+            <td>{{ monetarytransaction.category.name }}</td>
+            <td>{{ monetarytransaction.value }}</td>
+            <td><p-button icon="pi pi-trash" (onClick)="delete(monetarytransaction)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

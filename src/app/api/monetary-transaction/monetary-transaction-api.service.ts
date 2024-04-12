@@ -38,4 +38,9 @@ export class MonetaryTransactionApiService {
   delete(monetaryTransaction: MonetaryTransaction) {
     return this.http.delete(`http://localhost:3000/transaction/${monetaryTransaction.id}`);
   }
+
+  parse(transactions:string[]) {
+    
+    return this.http.post<MonetaryTransaction[]>("http://localhost:3000/transaction/parse", {transactions: transactions, dateFormat: "d/m/y"});
+  }
 }

@@ -5,10 +5,14 @@
     <app-account-dropdown formControlName="account"></app-account-dropdown>
 </form>
 
+<app-monetary-transaction-quick-input *ngIf="! selectedTransaction && ! selectedTransactionToDelete && selectedAccount"></app-monetary-transaction-quick-input>
+
 <div class="flex flex-row-reverse ">
     <button pButton  class="p-2" label="New transaction" *ngIf="! selectedTransaction && ! selectedTransactionToDelete && selectedAccount" (onClick)="newTransaction()"
         severity="info" #newButton></button>
 </div>
+
+
 
 <app-monetary-transaction-list [navigationEnabled]="selectedTransaction == null && selectedTransactionToDelete == null"  [monetaryTransactions]="monetaryTransactions"
 (onDeleted)="deleteTransactionSelected($event)" (onSelected)="selectTransaction($event)"></app-monetary-transaction-list>
